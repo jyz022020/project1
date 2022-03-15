@@ -7,4 +7,43 @@ function getETAInfo(start, end) {
     })
 }
 
-getETAInfo("Disneyland","Universal+Studios+Hollywood");
+
+
+function getEventsList() {
+    var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + ticketMasterCred.CONSUMER_KEY
+
+    fetch(eventUrl)
+        .then(response => {
+        if (response.ok) {
+            response.json().then(data =>{
+                eventsList = data._embedded.events;
+                console.log(eventsList);
+
+                for (var i = 0; i<eventsList.length; i++) {
+                    console.log("event i=" + i)
+                    console.log(eventsList[i].name)
+                    if (eventsList[i].priceRanges) {
+                        console.log(eventsList[i].priceRanges)
+                    }
+                    console.log(eventsList[i].url)
+                    venue = eventsList[i]._embedded.venues[0]
+                    console.log(venue.name)
+                    console.log(venue.city.name)
+
+
+                }
+            })
+
+        }
+        else {
+            console.log(eventList)
+            alert("Error, bad response")
+        }
+
+    })
+
+}
+
+
+
+
