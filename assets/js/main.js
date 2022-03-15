@@ -9,8 +9,12 @@ function getETAInfo(start, end) {
 
 
 
-function getEventsList() {
-    var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + ticketMasterCred.CONSUMER_KEY
+function getEventsList(city, startDateTime) {
+    var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="
+                    + ticketMasterCred.CONSUMER_KEY
+                    + "&city=" + city
+                    + "&startDateTime=" + startDateTime
+                    + "&sort=date,asc"
 
     fetch(eventUrl)
         .then(response => {
@@ -22,14 +26,16 @@ function getEventsList() {
                 for (var i = 0; i<eventsList.length; i++) {
                     console.log("event i=" + i)
                     console.log(eventsList[i].name)
+                    console.log(eventsList[i].dates.start.localDate)
                     if (eventsList[i].priceRanges) {
-                        console.log(eventsList[i].priceRanges)
+                        price = eventsList[i].priceRanges[0]
+                        console.log(price.min + " " + price.currency)
+
                     }
                     console.log(eventsList[i].url)
                     venue = eventsList[i]._embedded.venues[0]
                     console.log(venue.name)
                     console.log(venue.city.name)
-
 
                 }
             })
@@ -47,3 +53,4 @@ function getEventsList() {
 
 
 
+getEventsList("chicago", "2022-09-22T02:00:00Z")
