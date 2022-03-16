@@ -8,7 +8,8 @@ CSS framework - https://materializecss.com/icons.html
 
 APIs:
 * https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events-v2
-* https://developers.google.com/maps/documentation/directions/overview
+
+* https://developers.google.com/maps/documentation/javascript/
 
 screenshot
 ![image](assets/images/ScreenShot.png)

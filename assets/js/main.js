@@ -7,7 +7,7 @@ function getETAInfo(start, end) {
     })
 }
 
-
+getETAInfo("Chicago", "St. Louis")
 
 function getEventsList(city, startDateTime) {
     var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="
@@ -39,7 +39,6 @@ function getEventsList(city, startDateTime) {
 
                 }
             })
-
         }
         else {
             console.log(eventList)
@@ -51,6 +50,3 @@ function getEventsList(city, startDateTime) {
 }
 
 
-
-
-getEventsList("chicago", "2022-09-22T02:00:00Z")
