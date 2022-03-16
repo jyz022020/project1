@@ -7,18 +7,20 @@ function getETAInfo(start, end) {
     })
 }
 
-getETAInfo("Chicago", "St. Louis")
 
 function getEventsList(city, startDateTime) {
+    console.log(new Date(startDateTime).toISOString())
+    var startDateTime = startDateTime + "T00:00:00Z"
     var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="
                     + ticketMasterCred.CONSUMER_KEY
                     + "&city=" + city
                     + "&startDateTime=" + startDateTime
                     + "&sort=date,asc"
-
+    console.log(eventUrl)
     fetch(eventUrl)
         .then(response => {
         if (response.ok) {
+            console.log(response)
             response.json().then(data =>{
                 eventsList = data._embedded.events;
                 console.log(eventsList);
@@ -49,4 +51,4 @@ function getEventsList(city, startDateTime) {
 
 }
 
-
+getEventsList("chicago", "2022-09-22")
