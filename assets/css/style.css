@@ -8,25 +8,21 @@ header{
     font-size: large;  
 }
 
-.search-text{
-    margin-bottom: 10px;
-    margin: 30px;
+/* #search-content {
+    width: 60%;
+    height: 40px;
+} */
+
+#search-section{
+    margin-left: 60px;
+    margin-top: 30px;
+    height: 600px;
     font-weight: bold;
     color:#4db6ac;
 }
 
-
-#search-content {
-    width: 60%;
-    height: 40px;
-}
-
-#search-section{
-    margin-left: 60px;
-}
-
 #search-button {
-    margin-left: 170px;
+    margin-left:180px;
 }
 
 #right-side-title {
@@ -36,7 +32,7 @@ header{
 }
 
 .map-info-row{
-    height: 320px;
+    margin-top: 10px;
 }
 
 
@@ -44,6 +40,7 @@ header{
     margin:20px;
     border-style: solid;
     background-color: #ef9a9a;
+    height:100px;
 }
 
 footer{

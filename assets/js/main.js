@@ -88,4 +88,11 @@ var createEventCard = function(event) {
 
 }
 
+<<<<<<< HEAD
 var events = getEventsList("Chicago", "2022-05-05");
+=======
+getETAInfo("irvine", "disneyland");
+
+
+getEventsList("chicago", "2022-09-22T02:00:00Z")
+>>>>>>> ad34d58 (add more css)
