@@ -7,46 +7,85 @@ function getETAInfo(start, end) {
     })
 }
 
-getETAInfo("Chicago", "St. Louis")
 
-function getEventsList(city, startDateTime) {
+function calcRoute() {
+    var directionsService = new google.maps.DirectionsService();
+    var start = "St. Louis Arch"
+    var end = "St. Louis City Museum"
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: "DRIVING"
+    };
+
+    directionsService.route(request, function(result, status){
+        if (status == "OK"){
+            console.log(result);
+            console.log(result.routes[0].legs[0].duration.text)
+        }
+    });
+};
+
+
+var getEventsList = function(city, startDateTime) {
+    var result;
+    var startDateTime = startDateTime + "T00:00:00Z"
     var eventUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="
                     + ticketMasterCred.CONSUMER_KEY
                     + "&city=" + city
                     + "&startDateTime=" + startDateTime
                     + "&sort=date,asc"
-
     fetch(eventUrl)
         .then(response => {
         if (response.ok) {
             response.json().then(data =>{
                 eventsList = data._embedded.events;
-                console.log(eventsList);
 
                 for (var i = 0; i<eventsList.length; i++) {
-                    console.log("event i=" + i)
-                    console.log(eventsList[i].name)
-                    console.log(eventsList[i].dates.start.localDate)
-                    if (eventsList[i].priceRanges) {
-                        price = eventsList[i].priceRanges[0]
-                        console.log(price.min + " " + price.currency)
+                    createEventCard(eventsList[i])
 
-                    }
-                    console.log(eventsList[i].url)
-                    venue = eventsList[i]._embedded.venues[0]
-                    console.log(venue.name)
-                    console.log(venue.city.name)
 
                 }
             })
         }
         else {
-            console.log(eventList)
             alert("Error, bad response")
         }
-
     })
+};
+
+var createEventCard = function(event) {
+    console.log(event)
+    var eventCardEl = $("<div>").addClass("card horizontal")
+    var cardImageEl = $("<div>").addClass("card-image")
+    var ImageEl = $("<img>")
+                    .attr("src", event.images[0].url)
+    var eventCardStacked =$("<div>").addClass("card-stacked")
+    var cardContentEl = $("<div>").addClass("card-content")
+    var eventNameEl = $("<p>").text(event.name)
+    var eventDateEl =$("<p>").text(event.dates.start.localDate)
+    if (event.priceRanges){
+        var eventPriceEl =$("<p>").text("Lowest Price: $" + event.priceRanges[0].min)
+    }
+    else {
+        var eventPriceEl =$("<p>")
+    }
+    var eventVenueEl = $("<p>").text(event._embedded.venues[0].name)
+
+    var eventActionEl = $("<div>").addClass("card-action")
+    var eventLinkEl = $("<a>")
+                        .attr("href", event.url)
+                        .text("Buy Tickets")
+
+
+    cardContentEl.append(eventNameEl, eventDateEl, eventPriceEl, eventVenueEl)
+    eventActionEl.append(eventLinkEl)
+    eventCardStacked.append(cardContentEl, eventActionEl)
+    cardImageEl.append(ImageEl)
+    eventCardEl.append(cardImageEl, eventCardStacked)
+
+    $("#right-side-results").append(eventCardEl)
 
 }
 
-
+var events = getEventsList("Chicago", "2022-05-05");
