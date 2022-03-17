@@ -97,7 +97,6 @@ window.addEventListener('load', function () {
     }, 5000);
 });
 
-
-
-
+var events = getEventsList("Chicago", "2022-05-05");
+getETAInfo("irvine", "disneyland");
 
