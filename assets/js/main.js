@@ -51,8 +51,8 @@
 
 //     $("#right-side-results").append(eventCardEl)
 // };
-
 function initMap() {
+    alert("init");
     var directionsRenderer = new google.maps.DirectionsRenderer();
     var chicago = new google.maps.LatLng(41.850033, -87.6500523);
     var mapOptions = {
@@ -102,16 +102,22 @@ window.addEventListener('load', function () {
 
 
 
-// function getETAInfo(start, end) {
-//     var directionInfo = fetch("https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + end + "&key=" + "AIzaSyCmFDQf58ZuTf-R93Rkrlxk5HEeNe2XmjY", {
-//         mode: "no-cors"
-//     });
-//     directionInfo.then(directionInfo => {
-//         console.log(directionInfo);
-//         // var distance = directionInfo.routes.legs[0].distance.text;
-//         // var duration = directionInfo.routes.legs[0].duration.text;
-//     })
-// }
+function getETAInfo(start, end) {
+    var url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + end + "&key=" + "AIzaSyCmFDQf58ZuTf-R93Rkrlxk5HEeNe2XmjY";
+    var directionInfo = fetch("https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + end + "&key=" + "AIzaSyCmFDQf58ZuTf-R93Rkrlxk5HEeNe2XmjY");
+    directionInfo
+        .then(response => response.json())
+        .then(directionInfo => {
+          var distance = directionInfo.routes[0].legs[0].distance.text;
+          var duration = directionInfo.routes[0].legs[0].duration.text;
+          console.log(distance);
+          console.log(duration);
+          $(".results-row").append("<div>From: "+ start + "</div>");
+          $(".results-row").append("<div>To: " + end + "</div>");
+          $(".results-row").append("<div>Distance: "+ distance +"</div>");
+          $(".results-row").append("<div>Duration: "+ duration +"</div>");
+        })
+}   
 
 // function getETAInfo(start, end) {
 //     var directionInfo = fetch("https://www.mapquestapi.com/directions/v2/route?key=Gt9LXIoolr55XbcGYg9MVFhLr9xt8DH0&from=disneyland&to=irvine");
@@ -123,5 +129,5 @@ window.addEventListener('load', function () {
 //     })
 // }
 
-// getETAInfo("irvine", "disneyland");
+getETAInfo("738 W Irving Park, Chicago IL", "Beat Kitchen Chicago");
 
