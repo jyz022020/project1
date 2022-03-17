@@ -100,7 +100,9 @@
 // var events = getEventsList("Chicago", "2022-05-05");
 
 function getETAInfo(start, end) {
-    var directionInfo = fetch("https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + end + "&key=" + "AIzaSyCmFDQf58ZuTf-R93Rkrlxk5HEeNe2XmjY");
+    var directionInfo = fetch("https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + end + "&key=" + "AIzaSyCmFDQf58ZuTf-R93Rkrlxk5HEeNe2XmjY", {
+        mode: "no-cors"
+    });
     directionInfo.then(directionInfo => {
         console.log(directionInfo);
         // var distance = directionInfo.routes.legs[0].distance.text;
